@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Enum\MeasurementUnits;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +16,9 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('calories')
+            ->add('calories', NumberType::class, [
+                'label' => 'Calories [kcal]'
+            ])
             ->add('unit', EnumType::class, [
                 'class' => MeasurementUnits::class
             ]);
