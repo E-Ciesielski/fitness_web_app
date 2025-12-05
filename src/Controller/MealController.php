@@ -6,6 +6,7 @@ use App\Entity\Meal;
 use App\Entity\MealProduct;
 use App\Form\MealType;
 use App\Repository\MealRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,10 +62,28 @@ final class MealController extends AbstractController
     #[Route('/{id}/edit', name: 'app_meal_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Meal $meal, EntityManagerInterface $entityManager): Response
     {
+        $originalMealProducts = new ArrayCollection();
+        foreach($meal->getMealProducts() as $mealProduct)
+        {
+            $originalMealProducts->add($mealProduct);
+        }
+
         $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($originalMealProducts as $originalMealProduct)
+            {
+                if($meal->getMealProducts()->contains($originalMealProduct) === false)
+                {
+                    $entityManager->remove($originalMealProduct);
+                }
+            }
+            foreach($meal->getMealProducts() as $mealProduct)
+            {
+                $mealProduct->setMeal($meal);
+                $entityManager->persist($mealProduct);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_meal_index', [], Response::HTTP_SEE_OTHER);

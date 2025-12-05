@@ -17,7 +17,8 @@ class MealType extends AbstractType
             ->add('mealProducts', CollectionType::class, [
                 'entry_type' => MealProductType::class,
                 'entry_options' => ['label' => false],
-                'allow_add' => true
+                'allow_add' => true,
+                'allow_delete' => true
             ])
         ;
     }

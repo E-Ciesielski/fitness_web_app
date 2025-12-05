@@ -5,6 +5,25 @@ document
       console.log('click');
   });
 
+document
+    .querySelectorAll('ul.mealProducts li')
+    .forEach((tag) => {
+        addFormDeleteLink(tag)
+    })
+
+function addFormDeleteLink(item) {
+    const removeFormButton = document.createElement('button');
+    removeFormButton.innerText = 'Delete this product';
+
+    item.append(removeFormButton);
+
+    removeFormButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        // remove the li for the tag form
+        item.remove();
+    });
+}
+
 function addFormToCollection(e) {
   const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
   console.log(collectionHolder)
@@ -21,4 +40,6 @@ function addFormToCollection(e) {
   collectionHolder.appendChild(item);
 
   collectionHolder.dataset.index++;
+
+  addFormDeleteLink(item);
 };
