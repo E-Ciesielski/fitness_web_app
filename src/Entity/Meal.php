@@ -57,9 +57,9 @@ class Meal
 
     public function addMealProduct(MealProduct $mealProduct): static
     {
+        $mealProduct->setMeal($this);
         if (!$this->mealProducts->contains($mealProduct)) {
             $this->mealProducts->add($mealProduct);
-            $mealProduct->setMeal($this);
         }
 
         return $this;

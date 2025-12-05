@@ -15,6 +15,13 @@
                 <th>Name</th>
                 <td>{{ meal.name }}</td>
             </tr>
+            {% for mealProduct in meal.mealProducts %}
+            <tr>
+                <th>Product</th>
+                <td>{{ mealProduct.product.name }}</td>
+                <td>{{ mealProduct.amount }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 

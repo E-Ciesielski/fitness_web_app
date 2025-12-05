@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Meal;
+use App\Entity\MealProduct;
 use App\Form\MealType;
 use App\Repository\MealRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,10 +27,17 @@ final class MealController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $meal = new Meal();
+        $mealProduct = new MealProduct();
+        $meal->addMealProduct($mealProduct);
+
         $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach($meal->getMealProducts() as $mealProduct)
+            {
+                $mealProduct->setMeal($meal);
+                $entityManager->persist($mealProduct);
+            }
             $entityManager->persist($meal);
             $entityManager->flush();
 
@@ -72,6 +80,10 @@ final class MealController extends AbstractController
     public function delete(Request $request, Meal $meal, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$meal->getId(), $request->getPayload()->getString('_token'))) {
+            foreach($meal->getMealProducts() as $mealProduct)
+            {
+                $entityManager->remove($mealProduct);
+            }
             $entityManager->remove($meal);
             $entityManager->flush();
         }

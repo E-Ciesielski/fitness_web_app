@@ -100,26 +100,4 @@ class Product
     {
         return $this->mealProducts;
     }
-
-    public function addMealProduct(MealProduct $mealProduct): static
-    {
-        if (!$this->mealProducts->contains($mealProduct)) {
-            $this->mealProducts->add($mealProduct);
-            $mealProduct->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMealProduct(MealProduct $mealProduct): static
-    {
-        if ($this->mealProducts->removeElement($mealProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($mealProduct->getProduct() === $this) {
-                $mealProduct->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
 }
