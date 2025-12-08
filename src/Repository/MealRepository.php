@@ -16,6 +16,14 @@ class MealRepository extends ServiceEntityRepository
         parent::__construct($registry, Meal::class);
     }
 
+    public function searchByName(string $name): array
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.name LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Meal[] Returns an array of Meal objects
     //     */

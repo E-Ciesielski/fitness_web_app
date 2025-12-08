@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Calories</h1>
+    <form method="get">
+        <input type="date" aria-label="date" value="{{ date}}" onchange="this.form.submit()" name="date"/>
+    </form>
+    <form method="get" >
+        <input type="hidden" name="date" value="{{ date }}"/>
+        <input type="text" aria-label="search" placeholder="Search..." name="search" value="{{ search }}"/>
+        <button type="submit">Search</button>
+    </form>
+    <h4>Meals search</h4>
+    <form method="post" action="{{ path('app_daily_log_new_meal') }}">
+        <input type="hidden" name="date" value="{{ date }}"/>
+        {% for meal in mealsSearch %}
+            <input type="radio" name="meal" value="{{ meal.id }}"onchange="this.form.submit()"/>
+            <label>{{ meal.name }}</label>
+        {% endfor %}
+    </form>
+    <h4>Calories</h4>
+    <ul>
+        {% for dailyLogMeal in dailyLogMeals %}
+            <li>{{ dailyLogMeal.meal.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
