@@ -1,4 +1,104 @@
+:root {
+    --color-primary: #00FFFF;
+    --color-primary-2: #00AEFF;
+    --color-secondary: #00FF52;
+    --color-secondary-2: #00DE94;
+    --color-background: #1C1C1C;
+    --color-text: #F8F8FF;
+    --color-border: #808080;
+}
+
 body {
     font-family: "Roboto", sans-serif;
     margin: 0;
+    background: var(--color-background);
+    color: var(--color-text);
 }
+
+h1 {
+    margin: 0;
+}
+
+/* PAGE */
+.content {
+    padding: 1em;
+}
+
+.header {
+    display: flex;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* NAV */
+.main-nav {
+    padding: 1em;
+    border-bottom: solid 1px var(--color-border);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-text);
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    color: var(--color-primary);
+}
+
+.nav-link:first-child {
+    margin: 0;
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+}
+
+/* TABLE */
+.table {
+    border: solid 1px var(--color-border);
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.table td, .table th {
+    border: solid 1px var(--color-border);
+    padding: 0.5em;
+}
+
+.table th {
+    text-align: start;
+}
+
+/* LINK */
+.link {
+    text-decoration: none;
+    color: var(--color-primary-2);
+}
+
+/* UTILITY */
+.divider {
+    display: inline-block;
+    width: 1px;
+    height: 1rem;
+    background: var(--color-border);
+    margin: 0 .5rem;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    color: var(--color-background);
+    font-size: 1rem;
+}
+
+.btn--primary {
+    background-color: var(--color-primary);
+    padding: .4em .6em;
+    border-radius: 8px;
+}
+
