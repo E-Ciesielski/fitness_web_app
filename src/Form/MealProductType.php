@@ -17,7 +17,7 @@ class MealProductType extends AbstractType
             ->add('amount')
             ->add('product', EntityType::class, [
                 'class' => Product::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

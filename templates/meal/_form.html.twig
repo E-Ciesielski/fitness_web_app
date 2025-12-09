@@ -1,15 +1,19 @@
 {{ form_start(form) }}
     {{ form_row(form.name) }}
-    <h3>Products</h3>
-    <button type="button" class="add_item_link" data-collection-holder-class="mealProducts">Add a product</button>
-    <ul class="mealProducts" data-index="{{ form.mealProducts|length > 0 ? form.mealProducts|last.vars.name + 1 : 0 }}"
-            data-prototype="{{ form_widget(form.mealProducts.vars.prototype)|e('html_attr') }}">
-        {% for mealProduct in form.mealProducts %}
-            <li>
-                {{ form_row(mealProduct.amount) }}
-                {{ form_row(mealProduct.product) }}
-            </li>
-        {% endfor %}
-    </ul>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<h3>Products</h3>
+<button type="button" class="add_item_link btn btn-secondary" data-collection-holder-class="mealProducts">Add a
+    product
+</button>
+<ul class="mealProducts list-group my-3"
+    data-index="{{ form.mealProducts|length > 0 ? form.mealProducts|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.mealProducts.vars.prototype)|e('html_attr') }}">
+    {% for mealProduct in form.mealProducts %}
+        <li class="list-group-item d-flex align-items-end gap-3">
+            {{ form_row(mealProduct.amount) }}
+            {{ form_row(mealProduct.product) }}
+        </li>
+    {% endfor %}
+</ul>
+<a href="{{ path('app_meal_index') }}" class="btn btn-secondary">Cancel</a>
+<button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

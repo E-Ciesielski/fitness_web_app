@@ -13,8 +13,8 @@ document
 
 function addFormDeleteLink(item) {
     const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this product';
-
+    removeFormButton.innerText = 'Delete';
+    removeFormButton.className = "btn btn-danger mb-3"
     item.append(removeFormButton);
 
     removeFormButton.addEventListener('click', (e) => {
@@ -26,9 +26,8 @@ function addFormDeleteLink(item) {
 
 function addFormToCollection(e) {
   const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-  console.log(collectionHolder)
   const item = document.createElement('li');
-
+  item.className = 'list-group-item d-flex gap-3 align-items-end'
   item.innerHTML = collectionHolder
     .dataset
     .prototype
@@ -36,6 +35,7 @@ function addFormToCollection(e) {
       /__name__/g,
       collectionHolder.dataset.index
     );
+  item.children[0].className = "d-flex gap-3";
 
   collectionHolder.appendChild(item);
 
